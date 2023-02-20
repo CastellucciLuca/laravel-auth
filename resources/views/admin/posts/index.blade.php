@@ -24,7 +24,7 @@
                 <td>{{ $post->author }}</td>
                 <td>{{ $post->post_date }}</td>
                 <td>
-                    <a href="" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-primary">
                         Show
                     </a>
 

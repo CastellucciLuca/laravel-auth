@@ -28,7 +28,7 @@
                         Show
                     </a>
 
-                    <a href="" class="btn btn-sm btn-success">
+                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-success">
                         Edit
                     </a>
 

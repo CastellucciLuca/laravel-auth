@@ -13,7 +13,7 @@
             <p class="card-text mb-4">
                 {{ $post->content }}
             </p>
-            <a href="#" class="btn btn-success">
+            <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-success">
                 Edit
             </a>
             <a href="#" class="btn btn-danger">

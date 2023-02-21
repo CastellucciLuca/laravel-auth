@@ -1,6 +1,20 @@
-<form action="{{ route('admin.posts.store') }}" method="POST" class="p-5">
+<form action="{{ route($routeName, $post) }}" method="POST" class="p-5">
     @csrf
-    @method('POST')
+    @method($method)
+
+    @if($errors->any())
+    <div class="error-wrapper">
+        <div class="alert alert-danger ">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
 
     <h5 class="mb-3">
         Author: <span class="fw-semibold">{{ Auth::user()->name }} </span>
@@ -13,12 +27,12 @@
 
     <div class="mb-3">
         <label for="post_date" class="form-label">Post date</label>
-        <input type="date" class="form-control" id="post_date" name="post_date">
+        <input type="dateTime" class="form-control" id="post_date" name="post_date" value="{{ old('post_date', $post->post_date )}}">
     </div>
 
     <div class="mb-3">
         <label for="post_content" class="form-label">Post content</label>
-        <textarea class="form-control" id="post_content" rows="10" name="content"></textarea>
+        <textarea class="form-control" id="post_content" rows="10" name="content">{{ old('content', $post->content )}}</textarea>
     </div>
 
     <div class="mb-3">

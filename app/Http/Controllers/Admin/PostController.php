@@ -8,9 +8,15 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
+    protected $validationRules = [
+        'title' => ['required', 'unique:posts' ],
+        'post_date' => 'required',
+        'content' => 'required'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.posts.create', ["post"=>new Post()]);
     }
 
     /**
@@ -40,11 +46,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|unique:posts',
-            'post_date' => 'required',
-            'content' => 'required'
-        ]);
+        $data = $request->validate($this->validationRules);
         $data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
         $newPost = new Post();
@@ -70,9 +72,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -82,9 +84,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', Rule::unique('posts')->ignore($post->id) ],
+            'post_date' => 'required',
+            'content' => 'required'
+        ]);
+        $post->update($data);
+        return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**

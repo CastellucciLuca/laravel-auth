@@ -5,7 +5,6 @@
     <form action="{{ route('admin.posts.store') }}" method="POST" class="p-5">
         @csrf
         @method('POST')
-
         <h5 class="mb-3">
             Create a new post from <span class="fw-semibold">{{ Auth::user()->name }} </span>
         </h5>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    @vite(['resources/js/deleteForm.js'])
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card text-center mt-5">
@@ -16,7 +20,7 @@
             <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-success">
                 Edit
             </a>
-            <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST" class="d-inline-block">
+            <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST" class="d-inline-block form-deleter">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">

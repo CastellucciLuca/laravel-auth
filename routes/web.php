@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Guest\PostController as GuestPostController;
 use App\Http\Controllers\Admin\DashboardController as DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', [GuestPostController::class, 'index'])->name('guests.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -15,7 +15,7 @@
                 {{ $post->title }}
             </h2>
         <div class="card-image mb-4">
-            @if ( str_starts_with($post->image, 'http'))
+            @if ( $post->isImageAUrl())
                 <img src="{{ $post->image }}"
             @else
                 <img src="{{ asset('storage/' . $post->image ) }}"

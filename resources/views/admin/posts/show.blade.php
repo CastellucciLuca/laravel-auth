@@ -14,6 +14,9 @@
             <h2 class="card-title fw-bold p-3">
                 {{ $post->title }}
             </h2>
+        <div class="card-image mb-4">
+            <img src="{{ asset('storage/' . $post->image ) }}" alt="Placeholder image" class="img-fluid">
+        </div>
             <p class="card-text mb-4">
                 {{ $post->content }}
             </p>

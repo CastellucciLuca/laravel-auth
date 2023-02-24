@@ -16,7 +16,8 @@ class PostController extends Controller
     protected $validationRules = [
         'title' => ['required', 'unique:posts' ],
         'post_date' => 'required',
-        'content' => 'required'
+        'content' => 'required',
+        'image' => 'required|image|max:300'
     ];
     /**
      * Display a listing of the resource.
@@ -50,6 +51,7 @@ class PostController extends Controller
         $data = $request->validate($this->validationRules);
         $data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
+        $data['image'] =  Storage::put('imgs/', $data['image']);
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
